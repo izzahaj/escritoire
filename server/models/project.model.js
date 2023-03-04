@@ -1,5 +1,5 @@
 const Project = (sequelize, Sequelize) => {
-  const project = sequelize.define("project", {
+  const project = sequelize.define('project', {
     id: {
       type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV4,
@@ -7,14 +7,14 @@ const Project = (sequelize, Sequelize) => {
     },
     title: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
     },
     description: {
       type: Sequelize.TEXT,
-      allowNull: true
-    }
-  })
+      allowNull: true,
+    },
+  });
   return project;
-}
+};
 
 export default Project;

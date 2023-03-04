@@ -1,4 +1,4 @@
-import db from "../models/index.js";
+import db from '../models/index';
 
 const Project = db.projects;
 const op = db.Sequelize.Op;
@@ -9,110 +9,112 @@ const create = async (req, res) => {
       id: req.body.id,
       title: req.body.title,
       description: req.body.description,
-      user_id: req.body.user_id
+      user_id: req.body.user_id,
     };
 
     const project = await Project.create(projectDetails);
-    
-    return res.status(201).json(project);
+
+    res.status(201).json(project);
   } catch (error) {
-    console.log(error)
+    console.log(error);
     if (error.name === 'SequelizeValidationError') {
-      return res.status(400).json({
-        message: error.message
+      res.status(400).json({
+        message: error.message,
       });
     }
 
-    return res.status(500).json({
-      message: "Internal server error"
+    res.status(500).json({
+      message: 'Internal server error',
     });
   }
 };
 
 const findAll = async (req, res) => {
   try {
-    const title = req.query.title;
+    const { title } = req.query;
     let projects = [];
 
     if (title) {
       projects = await Project.findAll({
         where: {
           title: {
-            [op.like]: `%${title}%`
-          }
-        }
+            [op.like]: `%${title}%`,
+          },
+        },
       });
     } else {
       projects = await Project.findAll();
     }
     res.status(200).json(projects);
   } catch (error) {
-    return res.status(500).json({
-      message: "Internal server error"
+    res.status(500).json({
+      message: 'Internal server error',
     });
   }
 };
 
 const findById = async (req, res) => {
   try {
-    const id = req.params.id;
+    const { id } = req.params;
     const project = await Project.findByPk(id);
 
     if (!project) {
-      return res.status(404).json({
-        message: "Project not found"
+      res.status(404).json({
+        message: 'Project not found',
       });
     }
 
     res.status(200).json(project);
   } catch (error) {
-    return res.status(500).json({
-      message: "Internal server error"
+    res.status(500).json({
+      message: 'Internal server error',
     });
   }
 };
 
 const update = async (req, res) => {
   try {
-    const id = req.params.id;
+    const { id } = req.params;
     const projectDetails = {
       title: req.body.title,
       description: req.body.description,
-      user_id: req.body.user_id
+      user_id: req.body.user_id,
     };
 
     const project = await Project.findByPk(id);
 
     if (!project) {
-      return res.status(404).json({
-        message: "Project not found"
+      res.status(404).json({
+        message: 'Project not found',
       });
     }
     await project.update(projectDetails);
     res.status(200).json(project);
   } catch (error) {
-    return res.status(500).json({
-      message: "Interval server error"
+    res.status(500).json({
+      message: 'Interval server error',
     });
   }
 };
 
 const remove = async (req, res) => {
   try {
-    const id = req.params.id;
+    const { id } = req.params;
     const project = await Project.findByPk(id);
     if (!project) {
-      return res.status(404).json({
-        message: 'Project not found'
+      res.status(404).json({
+        message: 'Project not found',
       });
     }
     await project.destroy();
     res.status(204).end();
   } catch (error) {
-    return res.status(500).json({
-      message: 'Internal server error'
+    res.status(500).json({
+      message: 'Internal server error',
     });
   }
 };
 
-export { create, findAll, findById, update, remove };
+export {
+  create, findAll, findById, update, remove,
+};

@@ -1,9 +1,9 @@
-import dbConfig from "../config/db.config.js";
-import Sequelize from "sequelize";
-import User from "./user.model.js";
-import Project from "./project.model.js";
-import Work from "./work.model.js";
-import Chapter from "./chapter.model.js";
+import Sequelize from 'sequelize';
+import dbConfig from '../config/db.config';
+import User from './user.model';
+import Project from './project.model';
+import Work from './work.model';
+import Chapter from './chapter.model';
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
@@ -13,13 +13,13 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     max: dbConfig.pool.max,
     min: dbConfig.pool.min,
     acquire: dbConfig.pool.acquire,
-    idle: dbConfig.pool.idle
-  }
+    idle: dbConfig.pool.idle,
+  },
 });
 
 const db = {
-  Sequelize: Sequelize,
-  sequelize: sequelize
+  Sequelize,
+  sequelize,
 };
 
 const users = User(sequelize, Sequelize);
@@ -30,40 +30,40 @@ const chapters = Chapter(sequelize, Sequelize);
 users.hasMany(projects, {
   foreignKey: {
     name: 'user_id',
-    allowNull: false
-  }
+    allowNull: false,
+  },
 });
 projects.belongsTo(users, {
   foreignKey: {
     name: 'user_id',
-    allowNull: false
-  }
+    allowNull: false,
+  },
 });
 
 projects.hasMany(works, {
   foreignKey: {
     name: 'project_id',
-    allowNull: false
-  }
+    allowNull: false,
+  },
 });
 works.belongsTo(projects, {
   foreignKey: {
     name: 'project_id',
-    allowNull: false
-  }
+    allowNull: false,
+  },
 });
 
 works.hasMany(chapters, {
   foreignKey: {
     name: 'work_id',
-    allowNull: false
-  }
+    allowNull: false,
+  },
 });
 chapters.belongsTo(works, {
   foreignKey: {
     name: 'work_id',
-    allowNull: false
-  }
+    allowNull: false,
+  },
 });
 
 db.users = users;

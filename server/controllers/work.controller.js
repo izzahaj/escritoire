@@ -1,4 +1,4 @@
-import db from "../models/index.js";
+import db from '../models/index';
 
 const Work = db.works;
 const op = db.Sequelize.Op;
@@ -9,109 +9,111 @@ const create = async (req, res) => {
       id: req.body.id,
       title: req.body.title,
       description: req.body.description,
-      project_id: req.body.project_id
+      project_id: req.body.project_id,
     };
 
     const work = await Work.create(workDetails);
-    
-    return res.status(201).json(work);
+
+    res.status(201).json(work);
   } catch (error) {
     if (error.name === 'SequelizeValidationError') {
-      return res.status(400).json({
-        message: error.message
+      res.status(400).json({
+        message: error.message,
       });
     }
 
-    return res.status(500).json({
-      message: "Internal server error"
+    res.status(500).json({
+      message: 'Internal server error',
     });
   }
 };
 
 const findAll = async (req, res) => {
   try {
-    const title = req.query.title;
+    const { title } = req.query;
     let works = [];
 
     if (title) {
       works = await Work.findAll({
         where: {
           title: {
-            [op.like]: `%${title}%`
-          }
-        }
+            [op.like]: `%${title}%`,
+          },
+        },
       });
     } else {
       works = await Work.findAll();
     }
-    res.status(200).json(projects);
+    res.status(200).json(works);
   } catch (error) {
-    return res.status(500).json({
-      message: "Internal server error"
+    res.status(500).json({
+      message: 'Internal server error',
     });
   }
 };
 
 const findById = async (req, res) => {
   try {
-    const id = req.params.id;
+    const { id } = req.params;
     const work = await Work.findByPk(id);
 
     if (!work) {
-      return res.status(404).json({
-        message: "Work not found"
+      res.status(404).json({
+        message: 'Work not found',
       });
     }
 
     res.status(200).json(work);
   } catch (error) {
-    return res.status(500).json({
-      message: "Internal server error"
+    res.status(500).json({
+      message: 'Internal server error',
     });
   }
 };
 
 const update = async (req, res) => {
   try {
-    const id = req.params.id;
+    const { id } = req.params;
     const workDetails = {
       title: req.body.title,
       description: req.body.description,
-      project_id: req.body.project_id
+      project_id: req.body.project_id,
     };
 
     const work = await Work.findByPk(id);
 
     if (!work) {
-      return res.status(404).json({
-        message: "Work not found"
+      res.status(404).json({
+        message: 'Work not found',
       });
     }
-    await work.update(projectDetails);
+    await work.update(workDetails);
     res.status(200).json(work);
   } catch (error) {
-    return res.status(500).json({
-      message: "Interval server error"
+    res.status(500).json({
+      message: 'Interval server error',
     });
   }
 };
 
 const remove = async (req, res) => {
   try {
-    const id = req.params.id;
+    const { id } = req.params;
     const work = await Work.findByPk(id);
     if (!work) {
-      return res.status(404).json({
-        message: 'Work not found'
+      res.status(404).json({
+        message: 'Work not found',
       });
     }
     await work.destroy();
     res.status(204).end();
   } catch (error) {
-    return res.status(500).json({
-      message: 'Internal server error'
+    res.status(500).json({
+      message: 'Internal server error',
     });
   }
 };
 
-export { create, findAll, findById, update, remove };
+export {
+  create, findAll, findById, update, remove,
+};

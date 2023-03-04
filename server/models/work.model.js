@@ -1,5 +1,5 @@
 const Work = (sequelize, Sequelize) => {
-  const work = sequelize.define("work", {
+  const work = sequelize.define('work', {
     id: {
       type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV4,
@@ -7,14 +7,14 @@ const Work = (sequelize, Sequelize) => {
     },
     title: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
     },
     description: {
       type: Sequelize.TEXT,
-      allowNull: true
-    }
-  })
+      allowNull: true,
+    },
+  });
   return work;
-}
+};
 
 export default Work;

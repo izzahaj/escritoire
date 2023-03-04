@@ -1,5 +1,5 @@
 const User = (sequelize, Sequelize) => {
-  const user = sequelize.define("user", {
+  const user = sequelize.define('user', {
     id: {
       type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV4,
@@ -8,22 +8,22 @@ const User = (sequelize, Sequelize) => {
     username: {
       type: Sequelize.STRING,
       allowNull: false,
-      unique: true
+      unique: true,
     },
     password: {
       type: Sequelize.STRING,
-      allowNull: true
+      allowNull: true,
     },
     email: {
       type: Sequelize.STRING,
       allowNull: false,
       unique: true,
       validate: {
-        isEmail: true
-      }
-    }
-  })
+        isEmail: true,
+      },
+    },
+  });
   return user;
-}
+};
 
 export default User;

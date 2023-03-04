@@ -1,5 +1,5 @@
 const Chapter = (sequelize, Sequelize) => {
-  const chapter = sequelize.define("chapter", {
+  const chapter = sequelize.define('chapter', {
     id: {
       type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV4,
@@ -7,22 +7,22 @@ const Chapter = (sequelize, Sequelize) => {
     },
     order: {
       type: Sequelize.INTEGER,
-      primaryKey: true
+      primaryKey: true,
     },
     title: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
     },
     description: {
       type: Sequelize.TEXT,
-      allowNull: true
+      allowNull: true,
     },
     body: {
       type: Sequelize.TEXT,
-      allowNull: false
-    }
-  })
+      allowNull: false,
+    },
+  });
   return chapter;
-}
+};
 
 export default Chapter;
