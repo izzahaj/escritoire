@@ -3,6 +3,7 @@ import cors from "cors";
 import db from "./models/index.js";
 import UserRoutes from "./routes/user.routes.js";
 import ProjectRoutes from "./routes/project.routes.js";
+import WorkRoutes from "./routes/work.routes.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -14,8 +15,9 @@ db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and re-sync db.");
 })
 
-ProjectRoutes(app);
 UserRoutes(app);
+ProjectRoutes(app);
+WorkRoutes(app);
 
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}...`)

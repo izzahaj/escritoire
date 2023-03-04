@@ -8,13 +8,15 @@ const create = async (req, res) => {
     const projectDetails = {
       id: req.body.id,
       title: req.body.title,
-      description: req.body.description
+      description: req.body.description,
+      user_id: req.body.user_id
     };
 
     const project = await Project.create(projectDetails);
     
     return res.status(201).json(project);
   } catch (error) {
+    console.log(error)
     if (error.name === 'SequelizeValidationError') {
       return res.status(400).json({
         message: error.message
@@ -75,7 +77,8 @@ const update = async (req, res) => {
     const id = req.params.id;
     const projectDetails = {
       title: req.body.title,
-      description: req.body.description
+      description: req.body.description,
+      user_id: req.body.user_id
     };
 
     const project = await Project.findByPk(id);

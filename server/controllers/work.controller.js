@@ -1,5 +1,4 @@
 import db from "../models/index.js";
-import Work from "../models/work.model.js";
 
 const Work = db.works;
 const op = db.Sequelize.Op;
@@ -9,10 +8,11 @@ const create = async (req, res) => {
     const workDetails = {
       id: req.body.id,
       title: req.body.title,
-      description: req.body.description
+      description: req.body.description,
+      project_id: req.body.project_id
     };
 
-    const work = await Work.create(projectDetails);
+    const work = await Work.create(workDetails);
     
     return res.status(201).json(work);
   } catch (error) {
@@ -76,7 +76,8 @@ const update = async (req, res) => {
     const id = req.params.id;
     const workDetails = {
       title: req.body.title,
-      description: req.body.description
+      description: req.body.description,
+      project_id: req.body.project_id
     };
 
     const work = await Work.findByPk(id);
