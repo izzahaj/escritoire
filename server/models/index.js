@@ -3,6 +3,7 @@ import Sequelize from "sequelize";
 import User from "./user.model.js";
 import Project from "./project.model.js";
 import Work from "./work.model.js";
+import Chapter from "./chapter.model.js";
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
@@ -24,6 +25,7 @@ const db = {
 const users = User(sequelize, Sequelize);
 const projects = Project(sequelize, Sequelize);
 const works = Work(sequelize, Sequelize);
+const chapters = Chapters(sequelize, Sequelize);
 
 users.hasMany(projects, {
   foreignKey: {
@@ -51,8 +53,22 @@ works.belongsTo(projects, {
   }
 });
 
+works.hasMany(chapters, {
+  foreignKey: {
+    name: 'work_id',
+    allowNull: false
+  }
+});
+chapters.belongsTo(works, {
+  foreignKey: {
+    name: 'work_id',
+    allowNull: false
+  }
+});
+
 db.users = users;
 db.projects = projects;
 db.works = works;
+db.chapters = chapters;
 
 export default db;
