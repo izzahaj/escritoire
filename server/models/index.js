@@ -25,7 +25,7 @@ const db = {
 const users = User(sequelize, Sequelize);
 const projects = Project(sequelize, Sequelize);
 const works = Work(sequelize, Sequelize);
-const chapters = Chapters(sequelize, Sequelize);
+const chapters = Chapter(sequelize, Sequelize);
 
 users.hasMany(projects, {
   foreignKey: {
