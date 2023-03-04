@@ -8,9 +8,13 @@ const Project = (sequelize, Sequelize) => {
     title: {
       type: Sequelize.STRING,
       allowNull: false
+    },
+    description: {
+      type: Sequelize.STRING,
+      allowNull: true
     }
   })
-  return user;
+  return project;
 }
 
-export default User;
+export default Project;

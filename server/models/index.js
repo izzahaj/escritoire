@@ -18,6 +18,7 @@ const db = {
   Sequelize: Sequelize,
   sequelize: sequelize,
   users: User(sequelize, Sequelize),
+  projects: Project(sequelize, Sequelize)
 };
 
 export default db;
