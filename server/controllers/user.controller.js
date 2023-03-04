@@ -18,10 +18,10 @@ const create = async (req, res) => {
   } catch (error) {
     if (error.name === 'SequelizeValidationError') {
       return res.status(400).json({
-        message: err.message
+        message: error.message
       });
     }
-
+    console.log(error);
     return res.status(500).json({
       message: "Internal server error"
     });

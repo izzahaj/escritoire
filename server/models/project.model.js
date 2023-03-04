@@ -1,5 +1,5 @@
 const Project = (sequelize, Sequelize) => {
-  const project = sequelize.define("user", {
+  const project = sequelize.define("project", {
     id: {
       type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV4,
@@ -10,7 +10,7 @@ const Project = (sequelize, Sequelize) => {
       allowNull: false
     },
     description: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: true
     }
   })

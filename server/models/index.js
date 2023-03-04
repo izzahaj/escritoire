@@ -1,6 +1,7 @@
 import dbConfig from "../config/db.config.js";
 import Sequelize from "sequelize";
 import User from "./user.model.js";
+import Project from "./project.model.js"
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
@@ -16,9 +17,21 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 
 const db = {
   Sequelize: Sequelize,
-  sequelize: sequelize,
-  users: User(sequelize, Sequelize),
-  projects: Project(sequelize, Sequelize)
+  sequelize: sequelize
 };
+
+const users = User(sequelize, Sequelize);
+const projects = Project(sequelize, Sequelize);
+
+users.hasMany(projects, {
+  foreignKey: {
+    name: 'user_id',
+    allowNull: false
+  }
+});
+projects.belongsTo(users);
+
+db.users = users;
+db.projects = projects;
 
 export default db;
