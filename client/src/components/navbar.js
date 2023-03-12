@@ -1,13 +1,25 @@
 import Link from "next/link";
+import { useState } from "react";
 import styles from '../styles/Navbar.module.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import SearchBar from "./searchBar";
+import NavCreateButton from "./navCreateButton";
 
 export default function Navbar({ children }) {
+  const [showNav, setShowNav] = useState(false);
+
+  const toggleNavItems = () => {
+    setShowNav(!showNav)
+  }
+  
   return (
     <nav className={styles.main_navbar}>
       <Link href={"/"}>
-        <h3>Escritoire</h3>
+        <p>Escritoire</p>
       </Link>
       <div className={styles.navbar}>
+          <FontAwesomeIcon icon={faBars} className={styles.menu_icon} />
         <ul>
           <li>
             <Link href={"#"}>
@@ -27,18 +39,14 @@ export default function Navbar({ children }) {
         </ul>
         <ul>
           <li>
-            <Link href={"#"}>
-              Search
-            </Link>
+            <SearchBar />
+          </li>
+          <li>
+            <NavCreateButton />
           </li>
           <li>
             <Link href={"#"}>
-              Create
-            </Link>
-          </li>
-          <li>
-            <Link href={"#"}>
-              Profile
+              Pr
             </Link>
           </li>
         </ul>

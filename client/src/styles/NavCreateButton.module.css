@@ -1,0 +1,12 @@
+
+.create_button {
+  margin: auto;
+  color: #f3efee;
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+  padding: 0.5em 0.8em;
+}
+
+.create_button:hover {
+  filter: drop-shadow(2px 2px rgba(0, 0, 0, 0.3));
+}
